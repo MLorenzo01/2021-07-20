@@ -1,5 +1,11 @@
 package it.polito.tdp.yelp.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 public class User {
 	private String userId;
 	private int votesFunny;
@@ -8,9 +14,10 @@ public class User {
 	private String name;
 	private double averageStars;
 	private int reviewCount;
-	
+	private List<Review> reviews;
+ 	
 	public User(String userId, int votesFunny, int votesUseful, int votesCool, String name, double averageStars,
-			int reviewCount) {
+			int reviewCount, Review r) {
 		super();
 		this.userId = userId;
 		this.votesFunny = votesFunny;
@@ -19,6 +26,8 @@ public class User {
 		this.name = name;
 		this.averageStars = averageStars;
 		this.reviewCount = reviewCount;
+		this.reviews = new ArrayList<>();
+		reviews.add(r);
 	}
 
 	public String getUserId() {
@@ -75,6 +84,25 @@ public class User {
 
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
+	}
+
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Review rev) {
+		reviews.add(rev);
+	}
+	
+	public Set<String> getRByYear(int anno){
+		Set<String> lista = new HashSet<>();
+		for(Review r: reviews) {
+			if(r.getDate().getYear() == anno) {
+				lista.add(r.getBusinessId());
+			}
+		}
+		return lista;
 	}
 
 	@Override
